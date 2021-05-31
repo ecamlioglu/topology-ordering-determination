@@ -1,9 +1,9 @@
 package com.erdemcamlioglu;
 
-
 //adj matrix
 class Vertex {
     public int label;
+
     public Vertex(int lab) {
         label = lab;
     }
@@ -38,55 +38,55 @@ public class GraphMatrix {
 
     public void topo() {
         int orig_nVerts = nVerts;
-        while(nVerts>0) {
+        while (nVerts > 0) {
             int currentVertex = matrixKontrol();
-            sortedArray[nVerts-1] = vertexList[currentVertex].label;
+            sortedArray[nVerts - 1] = vertexList[currentVertex].label;
             deleteVertex(currentVertex);
         }
-        for(int j=0; j<orig_nVerts; j++) {
+        for (int j = 0; j < orig_nVerts; j++) {
             System.out.print(sortedArray[j] + " ");
         }
         System.out.println("");
     }
+
     public int matrixKontrol() {
         boolean isEdge;
-        for(int row=0; row<nVerts; row++) {
+        for (int row = 0; row < nVerts; row++) {
             isEdge = false;
-            for(int col=0; col<nVerts; col++) {
-                if(adjList[row][col] > 0) {
+            for (int col = 0; col < nVerts; col++) {
+                if (adjList[row][col] > 0) {
                     isEdge = true;
                     break;
                 }
             }
-            if(!isEdge)
+            if (!isEdge)
                 return row;
         }
         return -1;
     }
 
     public void deleteVertex(int delVert) {
-        if(delVert!= nVerts-1) {
-            for(int j=delVert; j<nVerts-1; j++)
-                vertexList[j] = vertexList[j+1];
+        if (delVert != nVerts - 1) {
+            for (int j = delVert; j < nVerts - 1; j++)
+                vertexList[j] = vertexList[j + 1];
 
-            for(int row=delVert; row<nVerts-1; row++)
+            for (int row = delVert; row < nVerts - 1; row++)
                 moveRowUp(row, nVerts);
 
-            for(int col=delVert; col<nVerts-1; col++)
-                moveColLeft(col, nVerts-1);
+            for (int col = delVert; col < nVerts - 1; col++)
+                moveColLeft(col, nVerts - 1);
         }
         nVerts--;
     }
 
     private void moveRowUp(int row, int length) {
-        for(int col=0; col<length; col++)
-            adjList[row][col] = adjList[row+1][col];
+        for (int col = 0; col < length; col++)
+            adjList[row][col] = adjList[row + 1][col];
     }
 
-    private void moveColLeft(int col, int length)
-    {
-        for(int row=0; row<length; row++)
-            adjList[row][col] = adjList[row][col+1];
+    private void moveColLeft(int col, int length) {
+        for (int row = 0; row < length; row++)
+            adjList[row][col] = adjList[row][col + 1];
 
     }
 }

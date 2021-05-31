@@ -12,8 +12,7 @@ public class CheckTopology {
     public static ArrayList<Integer> tsort;
 
     public static ArrayList<ArrayList<Integer>> adj;
-    public static int[] visited = new int[(int)1e5 + 1];
-
+    public static int[] visited = new int[(int) 1e5 + 1];
 
     static void checkSort(int u) {
         visited[u] = 1;
@@ -23,6 +22,7 @@ public class CheckTopology {
         }
         s.push(u);
     }
+
     static boolean cycleCalc() {
         Map<Integer, Integer> pos = new HashMap<>();
         int ind = 0;

@@ -10,36 +10,36 @@ public class AdjList {
     // Adjacency List
     private ArrayList<ArrayList<Integer>> adj;
 
-    AdjList(int v)
-    {
+    AdjList(int v) {
         V = v;
-        adj = new ArrayList<ArrayList<Integer> >(v);
+        adj = new ArrayList<ArrayList<Integer>>(v);
         for (int i = 0; i < v; ++i)
             adj.add(new ArrayList<Integer>());
     }
-    void addEdge(int v, int w) { adj.get(v).add(w); }
 
-    // sorting detail fonksiyonu
-    void AdjSortDetail(int v, boolean visited[],
-                             Stack<Integer> stack)
-    {
-        visited[v] = true; Integer i;
+    void addEdge(int v, int w) {
+        adj.get(v).add(w);
+    }
+
+    // sorting detail function
+    void AdjSortDetail(int v, boolean visited[], Stack<Integer> stack) {
+        visited[v] = true;
+        Integer i;
         Iterator<Integer> it = adj.get(v).iterator();
         while (it.hasNext()) {
             i = it.next();
             if (!visited[i])
                 AdjSortDetail(i, visited, stack);
         }
-        //result
+        // result
         stack.push((v));
     }
 
-    // Sıralama fonksiyonu
-    void AdjSort()
-    {
+    // Sorting func
+    void AdjSort() {
         Stack<Integer> stack = new Stack<Integer>();
 
-        // Gezinme işaretlemesi
+        // visited pointing
         boolean visited[] = new boolean[V];
         for (int i = 0; i < V; i++)
             visited[i] = false;

@@ -18,6 +18,7 @@ class Node {
     public int getId() {
         return id;
     }
+
     public List<Integer> getNeighbors() {
         return neighbors;
     }
@@ -52,15 +53,16 @@ class Graph {
         return this.nodes.size();
     }
 }
-class NeighborList{
+
+class NeighborList {
     public static void GeoSort(Graph g) {
         int V = g.getSize();
-        List<Integer> order = new ArrayList<> ();
+        List<Integer> order = new ArrayList<>();
 
         Map<Integer, Boolean> visited = new HashMap<>();
-        for (Node tmp: g.getNodes())
+        for (Node tmp : g.getNodes())
             visited.put(tmp.getId(), false);
-        for (Node tmp: g.getNodes()) {
+        for (Node tmp : g.getNodes()) {
             if (!visited.get(tmp.getId()))
                 GeoSortUtil(g, tmp.getId(), visited, order);
         }
@@ -71,7 +73,7 @@ class NeighborList{
     public static void GeoSortUtil(Graph g, int v, Map<Integer, Boolean> visited, List<Integer> order) {
         visited.replace(v, true);
         Integer i;
-        for (Integer neighborId: g.getNode(v).getNeighbors()) {
+        for (Integer neighborId : g.getNode(v).getNeighbors()) {
             if (!visited.get(neighborId))
                 GeoSortUtil(g, neighborId, visited, order);
         }

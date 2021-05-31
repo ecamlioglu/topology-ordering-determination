@@ -1,7 +1,5 @@
 package com.erdemcamlioglu;
 
-import com.sun.source.tree.Scope;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -11,17 +9,14 @@ import java.util.Stack;
 
 public class Main {
 
-
     public static void main(String[] args) {
         List<Character> tempList = new ArrayList<>();
         try {
             Scanner reader = new Scanner(new FileInputStream(args[0]));
-            System.out.println("Input başarılı dosyanızdaki veriler : ");
+            System.out.println("Input successfull. File details : ");
             while (reader.hasNextLine()) {
                 String data = reader.nextLine();
-                var temp = data
-                    .replaceAll("\\s", "")
-                    .split("->");
+                var temp = data.replaceAll("\\s", "").split("->");
                 for (int i = 0; i < temp.length; i++) {
                     tempList.add(temp[i].charAt(0));
                 }
@@ -33,7 +28,7 @@ public class Main {
             e.printStackTrace();
         }
         if (tempList.size() <= 0 || tempList.size() % 2 != 0) {
-            System.out.println("Input dosyası tanınamadı tekrar çalıştırınız!");
+            System.out.println("Error: Input file is invalid. Please try again!");
             return;
         }
 
@@ -45,9 +40,9 @@ public class Main {
             }
         }
 
-        //Check Topology:
-        CheckTopology.n = max;  // n = liste genişliği
-        CheckTopology.m = tempList.size() / 2; // m = edge sayısı
+        // Check Topology:
+        CheckTopology.n = max; // n = list length
+        CheckTopology.m = tempList.size() / 2; // m = edge count
 
         CheckTopology.s = new Stack<>();
         CheckTopology.adj = new ArrayList<>();
@@ -67,17 +62,17 @@ public class Main {
             }
         }
 
-        // dönebilirse
-        System.out.println("Topology Sıralanabilir Mi?");
+        // if topological order possible?
+        System.out.println("Is topological sorting possible?");
         if (CheckTopology.cycleCalc())
-            System.out.println("Evet");
+            System.out.println("Yes");
         else {
-            System.out.println("Hayır");
+            System.out.println("No");
             return;
         }
         System.out.println("------------------------------");
 
-        //Algorithm 1: Adjacency List
+        // Algorithm 1: Adjacency List
         AdjList algorithm1 = new AdjList(max + 1);
         for (int i = 0; i < tempList.size(); i++) {
             algorithm1.addEdge(Integer.parseInt(tempList.get(i).toString()),
@@ -88,7 +83,7 @@ public class Main {
         algorithm1.AdjSort();
         System.out.println("------------------------------");
 
-        //Algorithm 2: Neighbor List
+        // Algorithm 2: Neighbor List
 
         Graph g = new Graph();
         List<Node> nodeList = new ArrayList<Node>();
@@ -108,7 +103,7 @@ public class Main {
         NeighborList.GeoSort(g);
         System.out.println("------------------------------");
 
-        //Algorithm 3: Adjacency Matrix
+        // Algorithm 3: Adjacency Matrix
         GraphMatrix theGraph = new GraphMatrix();
         for (int i = 0; i < max + 1; i++) {
             theGraph.addVertex(i);
